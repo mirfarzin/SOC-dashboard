@@ -1,0 +1,18 @@
+event_id,timestamp,event_source,event_type,username,target_user,device_id,source_ip,destination_ip,action,authentication_result,privilege_change,approval_reference
+EVT-SCEN-A-001,2026-11-23T11:00:00+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-A-002,2026-11-23T11:00:25+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-A-003,2026-11-23T11:00:50+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-A-004,2026-11-23T11:01:15+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-A-005,2026-11-23T11:01:40+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-A-006,2026-11-23T11:02:05+05:30,auth_service,authentication,finance_user,,WS-FIN-02,198.51.100.44,10.0.1.15,user_logon,FAILURE,,
+EVT-SCEN-B-001,2026-11-23T02:45:10+05:30,active_directory,logon,dba_admin,,SQL-PROD-01,203.0.113.88,10.0.2.50,kerberos_preauth,SUCCESS,,
+EVT-SCEN-C-001,2026-11-23T14:20:00+05:30,active_directory,group_modification,shadow_svc,intern_guest,DC-PRIMARY-01,10.0.0.100,,member_added_to_security_group,SUCCESS,Administrators,
+EVT-SCEN-D-FAIL-001,2026-11-23T03:15:00+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,FAILURE,,
+EVT-SCEN-D-FAIL-002,2026-11-23T03:15:20+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,FAILURE,,
+EVT-SCEN-D-FAIL-003,2026-11-23T03:15:40+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,FAILURE,,
+EVT-SCEN-D-FAIL-004,2026-11-23T03:16:00+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,FAILURE,,
+EVT-SCEN-D-FAIL-005,2026-11-23T03:16:20+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,FAILURE,,
+EVT-SCEN-D-SUCC-001,2026-11-23T03:17:40+05:30,auth_service,authentication,target_admin,,CRITICAL-DC-01,185.220.101.5,,user_logon,SUCCESS,,
+EVT-SCEN-D-PRIV-001,2026-11-23T03:20:00+05:30,active_directory,group_modification,target_admin,target_admin,CRITICAL-DC-01,,,member_added_to_security_group,SUCCESS,Domain Admins,
+EVT-SCEN-E-001,2026-11-23T10:30:00+05:30,auth_service,authentication,analyst_alice,,WS-SEC-01,10.0.5.12,,user_logon,SUCCESS,,
+EVT-SCEN-E-002,2026-11-23T10:35:00+05:30,active_directory,group_modification,analyst_alice,svc_backup,WS-SEC-01,,,member_added_to_security_group,SUCCESS,SecurityAdmins,CHG-8041

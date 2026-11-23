@@ -1,0 +1,18 @@
+# PS02: Offline Security Incident Triage Assistant
+# Pinned Dependencies for Python 3.14 on Windows 11
+
+torch>=2.15.0
+transformers>=5.24.0
+safetensors>=0.8.0
+huggingface-hub>=2.4.0
+tokenizers>=0.23.0
+pydantic>=2.13.0
+streamlit>=1.67.0
+pandas>=3.1.0
+numpy>=2.5.0
+reportlab>=5.1.0
+python-pptx>=1.0.2
+pytest>=9.2.0
+pyyaml>=6.0.3
+python-dateutil>=2.9.0
+altair>=6.3.0

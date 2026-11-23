@@ -1,0 +1,115 @@
+"""
+Normalized Event and Incident Data Models for PS02 Offline Incident Triage.
+Strict validation, preservation of raw events, and full provenance tracking.
+"""
+
+from __future__ import annotations
+from datetime import datetime
+from enum import Enum
+from typing import Any, Dict, List, Optional
+from pydantic import BaseModel, Field, field_validator
+
+
+class AuthResult(str, Enum):
+    SUCCESS = "SUCCESS"
+    FAILURE = "FAILURE"
+    CHALLENGE = "CHALLENGE"
+    UNKNOWN = "UNKNOWN"
+
+
+class SeverityLevel(str, Enum):
+    CRITICAL = "Critical"
+    HIGH = "High"
+    MEDIUM = "Medium"
+    LOW = "Low"
+    INFORMATIONAL = "Informational"
+
+
+class NormalizedEvent(BaseModel):
+    """
+    Standardized schema for all security events ingested from CSV/JSON.
+    Preserves original raw log data for forensic traceability.
+    """
+    event_id: str = Field(description="Deterministic or assigned unique event identifier")
+    timestamp: datetime = Field(description="Normalized ISO-8601 timestamp (timezone-aware)")
+    event_source: str = Field(default="unknown", description="Source log stream (auth, endpoint, ad, edr)")
+    event_type: str = Field(default="general", description="Normalized category of event")
+    username: Optional[str] = Field(default=None, description="Primary user account associated with event")
+    device_id: Optional[str] = Field(default=None, description="Host identifier, workstation or server name")
+    source_ip: Optional[str] = Field(default=None, description="Source IP address if network/auth event")
+    destination_ip: Optional[str] = Field(default=None, description="Target IP address if applicable")
+    action: str = Field(default="unknown", description="Action attempted or executed")
+    authentication_result: AuthResult = Field(default=AuthResult.UNKNOWN, description="Auth outcome")
+    privilege_change: Optional[str] = Field(default=None, description="Privilege escalation or group change detail")
+    target_user: Optional[str] = Field(default=None, description="Target account receiving privileges")
+    approval_reference: Optional[str] = Field(default=None, description="Change management or ticket approval reference")
+    process_name: Optional[str] = Field(default=None, description="Process name or command line if endpoint log")
+    command_line: Optional[str] = Field(default=None, description="Full command execution arguments")
+    raw_event: Dict[str, Any] = Field(default_factory=dict, description="Preserved original un-altered log record")
+
+    class Config:
+        frozen = True
+
+
+class DetectionFinding(BaseModel):
+    """
+    Structured output from an individual deterministic detector rule.
+    """
+    rule_id: str = Field(description="Unique rule identifier e.g. RULE_FAILED_LOGIN_BURST")
+    rule_name: str = Field(description="Human readable name of the detection rule")
+    description: str = Field(description="Technical summary of what was triggered")
+    severity_contribution: int = Field(default=0, description="Additive severity score contribution")
+    supporting_event_ids: List[str] = Field(default_factory=list, description="Traceable event IDs supporting this finding")
+    timestamps: List[datetime] = Field(default_factory=list, description="Timestamps of participating events")
+    relevant_entities: Dict[str, List[str]] = Field(
+        default_factory=dict,
+        description="Dictionary of involved entities e.g. {'users': [...], 'hosts': [...], 'ips': [...]}"
+    )
+    explanation: str = Field(description="Contextual explanation of why the rule triggered")
+    is_authorized: bool = Field(default=False, description="Flag indicating if a formal approval was present")
+
+
+class Incident(BaseModel):
+    """
+    Correlated group of security events representing a unified security case.
+    """
+    incident_id: str = Field(description="Unique incident ID e.g. INC-20261123-0001")
+    title: str = Field(description="Descriptive title of the security incident")
+    severity: SeverityLevel = Field(default=SeverityLevel.LOW, description="Determined severity level")
+    severity_score: int = Field(default=0, description="Computed deterministic severity score (0-100)")
+    severity_breakdown: List[str] = Field(default_factory=list, description="Score explanation and contributing rules")
+    event_ids: List[str] = Field(default_factory=list, description="All associated event IDs")
+    findings: List[DetectionFinding] = Field(default_factory=list, description="Triggered detection findings")
+    entities_involved: Dict[str, List[str]] = Field(default_factory=dict, description="Consolidated entities")
+    correlation_explanation: str = Field(description="Why these events were correlated together")
+    timeline: List[Dict[str, Any]] = Field(default_factory=list, description="Chronological event progression")
+    created_at: datetime = Field(default_factory=datetime.utcnow, description="Timestamp of triage grouping")
+
+
+class SLMReportAnalysis(BaseModel):
+    """
+    Structured JSON output generated by the local Small Language Model or validated fallback.
+    """
+    incident_id: str
+    title: str
+    executive_summary: str
+    facts: List[str] = Field(default_factory=list, description="Verified facts directly evidenced in logs")
+    hypotheses: List[str] = Field(default_factory=list, description="Plausible security hypotheses clearly separated from facts")
+    rule_explanations: List[str] = Field(default_factory=list, description="Why each deterministic rule fired")
+    missing_evidence: List[str] = Field(default_factory=list, description="Critical telemetry currently missing to confirm intent")
+    recommended_actions: List[str] = Field(default_factory=list, description="Advisory containment and investigation steps")
+    referenced_event_ids: List[str] = Field(default_factory=list, description="Event IDs cited in the analysis")
+    validation_passed: bool = Field(default=True, description="Whether all cited event IDs exist in the incident")
+    validation_errors: List[str] = Field(default_factory=list, description="Any validation violations detected")
+    model_name: str = Field(default="fallback", description="Name of local model used")
+    is_fallback: bool = Field(default=False, description="True if heuristic fallback was used rather than raw SLM")
+
+
+class TriageReport(BaseModel):
+    """
+    Complete incident triage report bundle ready for JSON, Markdown, or PDF export.
+    """
+    incident: Incident
+    slm_analysis: SLMReportAnalysis
+    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    provenance: Dict[str, Any] = Field(default_factory=dict)

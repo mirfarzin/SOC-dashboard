@@ -1,0 +1,113 @@
+{
+  "incident": {
+    "incident_id": "INC-20261123-0005",
+    "title": "Unauthorized Privilege Escalation for shadow_svc on DC-PRIMARY-01",
+    "severity": "High",
+    "severity_score": 75,
+    "severity_breakdown": [
+      "Base severity anchor: Privilege Escalation / Sensitive Group Assignment (Rule: RULE_UNAUTHORIZED_PRIV_ESCALATION, Contribution: +75)",
+      "Final Deterministic Score: 75/100 -> Classified as HIGH (Thresholds: Critical>=85, High>=65, Medium>=40, Low>=20)"
+    ],
+    "event_ids": [
+      "EVT-SCEN-C-001"
+    ],
+    "findings": [
+      {
+        "rule_id": "RULE_UNAUTHORIZED_PRIV_ESCALATION",
+        "rule_name": "Privilege Escalation / Sensitive Group Assignment",
+        "description": "Unapproved privilege escalation: 'intern_guest' added to 'administrators'",
+        "severity_contribution": 75,
+        "supporting_event_ids": [
+          "EVT-SCEN-C-001"
+        ],
+        "timestamps": [
+          "2026-11-23T14:20:00+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "shadow_svc",
+            "intern_guest"
+          ],
+          "hosts": [
+            "DC-PRIMARY-01"
+          ],
+          "ips": [
+            "10.0.0.100"
+          ]
+        },
+        "explanation": "CRITICAL PRIVILEGE ANOMALY: User 'intern_guest' was added to high-privilege group/role 'administrators' by actor 'shadow_svc' on 'DC-PRIMARY-01' without any recorded change ticket, approval reference, or maintenance authorization in telemetry. This strongly resembles persistence establishment or unauthorized privilege escalation.",
+        "is_authorized": false
+      }
+    ],
+    "entities_involved": {
+      "users": [
+        "intern_guest",
+        "shadow_svc"
+      ],
+      "hosts": [
+        "DC-PRIMARY-01"
+      ],
+      "ips": [
+        "10.0.0.100"
+      ]
+    },
+    "correlation_explanation": "Correlated 1 suspicious detection finding(s) involving User(s): intern_guest, shadow_svc; Host(s): DC-PRIMARY-01; IP(s): 10.0.0.100 spanning 1 event(s) across a 0.0 minute window. Triggered detection rules: Privilege Escalation / Sensitive Group Assignment.",
+    "timeline": [
+      {
+        "event_id": "EVT-SCEN-C-001",
+        "timestamp": "2026-11-23T14:20:00+05:30",
+        "relative_seconds": 0,
+        "action": "member_added_to_security_group",
+        "source": "active_directory",
+        "username": "shadow_svc",
+        "device_id": "DC-PRIMARY-01",
+        "source_ip": "10.0.0.100",
+        "result": "SUCCESS",
+        "detail": "Administrators"
+      }
+    ],
+    "created_at": "2026-11-23T17:22:25.311445"
+  },
+  "slm_analysis": {
+    "incident_id": "INC-20261123-0005",
+    "title": "Unauthorized Privilege Escalation for shadow_svc on DC-PRIMARY-01",
+    "executive_summary": "Automated triage analyzed Incident INC-20261123-0005 involving identity 'intern_guest, shadow_svc' and device 'DC-PRIMARY-01'. Deterministic severity engine assigned HIGH (Score: 75/100) based on 1 triggered detection rule(s). Primary indicators: Privilege Escalation / Sensitive Group Assignment.",
+    "facts": [
+      "Rule 'Privilege Escalation / Sensitive Group Assignment' confirmed by event(s) [EVT-SCEN-C-001]: Unapproved privilege escalation: 'intern_guest' added to 'administrators'",
+      "Activity sequence commenced at 2026-11-23T14:20:00+05:30 (Event EVT-SCEN-C-001) and concluded at 2026-11-23T14:20:00+05:30 (Event EVT-SCEN-C-001)."
+    ],
+    "hypotheses": [
+      "Threat actor or rogue administrator establishing persistent root/administrative access on 'DC-PRIMARY-01' outside legitimate change approval workflows."
+    ],
+    "rule_explanations": [
+      "CRITICAL PRIVILEGE ANOMALY: User 'intern_guest' was added to high-privilege group/role 'administrators' by actor 'shadow_svc' on 'DC-PRIMARY-01' without any recorded change ticket, approval reference, or maintenance authorization in telemetry. This strongly resembles persistence establishment or unauthorized privilege escalation."
+    ],
+    "missing_evidence": [
+      "Active Directory Security Event 4672 / 4728 audit trail to identify the originating security principal."
+    ],
+    "recommended_actions": [
+      "Verify authorization of 'intern_guest, shadow_svc' group membership change with Change Advisory Board (CAB).",
+      "If unauthorized, revoke elevated privileges for 'intern_guest, shadow_svc' and audit recent audit log deletions."
+    ],
+    "referenced_event_ids": [
+      "EVT-SCEN-C-001"
+    ],
+    "validation_passed": true,
+    "validation_errors": [],
+    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "is_fallback": true
+  },
+  "generated_at": "2026-11-23T17:37:04.299094",
+  "provenance": {
+    "system": "PS02 Offline Security Incident Triage Assistant",
+    "version": "1.0.0",
+    "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
+    "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
+    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "inference_latency_ms": 116625.56,
+    "generated_at": "2026-11-23T17:37:04.299064Z",
+    "validation_passed": true,
+    "evidence_count": 1,
+    "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
+  }
+}

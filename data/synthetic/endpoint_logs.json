@@ -1,0 +1,38 @@
+[
+  {
+    "event_id": "EVT-SCEN-D-ENDP-001",
+    "timestamp": "2026-11-23T03:18:40+05:30",
+    "event_source": "endpoint_edr",
+    "event_type": "defense_evasion",
+    "username": "target_admin",
+    "device_id": "CRITICAL-DC-01",
+    "process_name": "powershell.exe",
+    "command_line": "powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true",
+    "action": "service_tamper",
+    "authentication_result": "SUCCESS"
+  },
+  {
+    "event_id": "EVT-SCEN-D-ENDP-002",
+    "timestamp": "2026-11-23T03:21:00+05:30",
+    "event_source": "endpoint_edr",
+    "event_type": "process_execution",
+    "username": "target_admin",
+    "device_id": "CRITICAL-DC-01",
+    "process_name": "mimikatz.exe",
+    "command_line": "mimikatz.exe sekurlsa::logonpasswords exit",
+    "action": "process_start",
+    "authentication_result": "SUCCESS"
+  },
+  {
+    "event_id": "EVT-SCEN-E-003",
+    "timestamp": "2026-11-23T10:38:00+05:30",
+    "event_source": "endpoint_edr",
+    "event_type": "process_execution",
+    "username": "analyst_alice",
+    "device_id": "WS-SEC-01",
+    "process_name": "notepad.exe",
+    "command_line": "notepad.exe C:\\Users\\analyst_alice\\notes.txt",
+    "action": "process_start",
+    "authentication_result": "SUCCESS"
+  }
+]

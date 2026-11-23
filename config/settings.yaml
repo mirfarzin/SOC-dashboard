@@ -1,0 +1,94 @@
+# Offline Security Incident Triage Assistant - Configuration
+# All detection thresholds, time windows, and scoring parameters are centralized here.
+
+organization:
+  name: "Tinyverse SOC"
+  timezone: "Asia/Kolkata"
+  working_hours:
+    start_hour: 9
+    end_hour: 18
+  working_days: [0, 1, 2, 3, 4]  # Monday to Friday (0 = Monday, 6 = Sunday)
+  weekend_is_unusual: true
+
+detectors:
+  failed_logins:
+    enabled: true
+    failure_threshold: 5
+    window_seconds: 300  # 5 minutes
+    escalate_on_success_after_burst: true
+    success_window_seconds: 600  # 10 minutes following burst
+
+  unusual_hours:
+    enabled: true
+    allow_weekend_for_oncall: true
+    flag_weekend: true
+    context_weight: 0.7
+
+  privilege_escalation:
+    enabled: true
+    sensitive_groups:
+      - "Administrators"
+      - "Domain Admins"
+      - "Enterprise Admins"
+      - "sudo"
+      - "root"
+      - "wheel"
+      - "SecurityAdmins"
+    elevated_roles:
+      - "GlobalAdmin"
+      - "SecurityAdmin"
+      - "CloudAdmin"
+    require_approval_metadata: true
+
+  endpoint_activity:
+    enabled: true
+    suspicious_processes:
+      - "mimikatz.exe"
+      - "procdump.exe"
+      - "vssadmin.exe delete shadows"
+      - "powershell -enc"
+      - "powershell -encodedcommand"
+      - "certutil -urlcache -split -f"
+      - "whoami /priv"
+      - "net user /add"
+      - "nc -e"
+      - "ncat -e"
+    security_controls_tampered:
+      - "DisableAntiSpyware"
+      - "Set-MpPreference -DisableRealtimeMonitoring $true"
+      - "sc stop WinDefend"
+      - "sc stop Sense"
+      - "net stop MpsSvc"
+
+correlation:
+  time_window_seconds: 1800  # 30 minutes
+  correlate_by_user: true
+  correlate_by_host: true
+  correlate_by_ip: true
+
+severity:
+  # Deterministic score contributions
+  weights:
+    RULE_FAILED_LOGIN_BURST: 45
+    RULE_BURST_FOLLOWED_BY_SUCCESS: 65
+    RULE_UNUSUAL_LOGIN_HOURS: 40
+    RULE_UNAUTHORIZED_PRIV_ESCALATION: 75
+    RULE_AUTHORIZED_PRIV_ESCALATION: 20
+    RULE_SUSPICIOUS_PROCESS_EXECUTION: 60
+    RULE_SECURITY_CONTROL_TAMPERING: 85
+  # Thresholds
+  thresholds:
+    critical: 85
+    high: 65
+    medium: 40
+    low: 20
+
+slm:
+  model_id: "HuggingFaceTB/SmolLM2-135M-Instruct"
+  fallback_model_id: "Qwen/Qwen2.5-0.5B-Instruct"
+  local_model_path: "models/SmolLM2-135M-Instruct"
+  max_new_tokens: 512
+  temperature: 0.1
+  device: "cpu"
+  offline_mode: true
+  timeout_seconds: 30

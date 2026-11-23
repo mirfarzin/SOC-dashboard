@@ -1,0 +1,110 @@
+{
+  "incident": {
+    "incident_id": "INC-20261123-0001",
+    "title": "Anomalous Out-of-Hours Authentication (dba_admin)",
+    "severity": "Medium",
+    "severity_score": 50,
+    "severity_breakdown": [
+      "Base severity anchor: Authentication Outside Standard Working Hours (Rule: RULE_UNUSUAL_LOGIN_HOURS, Contribution: +50)",
+      "Final Deterministic Score: 50/100 -> Classified as MEDIUM (Thresholds: Critical>=85, High>=65, Medium>=40, Low>=20)"
+    ],
+    "event_ids": [
+      "EVT-SCEN-B-001"
+    ],
+    "findings": [
+      {
+        "rule_id": "RULE_UNUSUAL_LOGIN_HOURS",
+        "rule_name": "Authentication Outside Standard Working Hours",
+        "description": "Out-of-hours login for 'dba_admin' at 02:45 IST",
+        "severity_contribution": 50,
+        "supporting_event_ids": [
+          "EVT-SCEN-B-001"
+        ],
+        "timestamps": [
+          "2026-11-23T02:45:10+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "dba_admin"
+          ],
+          "hosts": [
+            "SQL-PROD-01"
+          ],
+          "ips": [
+            "203.0.113.88"
+          ]
+        },
+        "explanation": "User 'dba_admin' successfully logged into 'SQL-PROD-01' from IP '203.0.113.88' at 2026-11-23 02:45:10 IST. Flagged because: time 02:45:10 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+        "is_authorized": false
+      }
+    ],
+    "entities_involved": {
+      "users": [
+        "dba_admin"
+      ],
+      "hosts": [
+        "SQL-PROD-01"
+      ],
+      "ips": [
+        "203.0.113.88"
+      ]
+    },
+    "correlation_explanation": "Correlated 1 suspicious detection finding(s) involving User(s): dba_admin; Host(s): SQL-PROD-01; IP(s): 203.0.113.88 spanning 1 event(s) across a 0.0 minute window. Triggered detection rules: Authentication Outside Standard Working Hours.",
+    "timeline": [
+      {
+        "event_id": "EVT-SCEN-B-001",
+        "timestamp": "2026-11-23T02:45:10+05:30",
+        "relative_seconds": 0,
+        "action": "kerberos_preauth",
+        "source": "active_directory",
+        "username": "dba_admin",
+        "device_id": "SQL-PROD-01",
+        "source_ip": "203.0.113.88",
+        "result": "SUCCESS",
+        "detail": "kerberos_preauth"
+      }
+    ],
+    "created_at": "2026-11-23T17:22:25.310669"
+  },
+  "slm_analysis": {
+    "incident_id": "INC-20261123-0001",
+    "title": "Anomalous Out-of-Hours Authentication (dba_admin)",
+    "executive_summary": "Automated triage analyzed Incident INC-20261123-0001 involving identity 'dba_admin' and device 'SQL-PROD-01'. Deterministic severity engine assigned MEDIUM (Score: 50/100) based on 1 triggered detection rule(s). Primary indicators: Authentication Outside Standard Working Hours.",
+    "facts": [
+      "Rule 'Authentication Outside Standard Working Hours' confirmed by event(s) [EVT-SCEN-B-001]: Out-of-hours login for 'dba_admin' at 02:45 IST",
+      "Activity sequence commenced at 2026-11-23T02:45:10+05:30 (Event EVT-SCEN-B-001) and concluded at 2026-11-23T02:45:10+05:30 (Event EVT-SCEN-B-001)."
+    ],
+    "hypotheses": [
+      "Off-hours access by 'dba_admin' may indicate compromised credentials exploited during low-monitoring windows or legitimate after-hours operational overtime."
+    ],
+    "rule_explanations": [
+      "User 'dba_admin' successfully logged into 'SQL-PROD-01' from IP '203.0.113.88' at 2026-11-23 02:45:10 IST. Flagged because: time 02:45:10 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access."
+    ],
+    "missing_evidence": [
+      "Host memory dump and surrounding network connection telemetry."
+    ],
+    "recommended_actions": [
+      "Directly contact user 'dba_admin' via secondary out-of-band communication (phone/manager) to verify physical presence."
+    ],
+    "referenced_event_ids": [
+      "EVT-SCEN-B-001"
+    ],
+    "validation_passed": true,
+    "validation_errors": [],
+    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "is_fallback": true
+  },
+  "generated_at": "2026-11-23T17:24:55.403389",
+  "provenance": {
+    "system": "PS02 Offline Security Incident Triage Assistant",
+    "version": "1.0.0",
+    "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
+    "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
+    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "inference_latency_ms": 136298.68,
+    "generated_at": "2026-11-23T17:24:55.403361Z",
+    "validation_passed": true,
+    "evidence_count": 1,
+    "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
+  }
+}

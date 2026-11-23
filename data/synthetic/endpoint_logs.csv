@@ -1,0 +1,4 @@
+event_id,timestamp,event_source,event_type,username,device_id,process_name,command_line,action,authentication_result
+EVT-SCEN-D-ENDP-001,2026-11-23T03:18:40+05:30,endpoint_edr,defense_evasion,target_admin,CRITICAL-DC-01,powershell.exe,powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true,service_tamper,SUCCESS
+EVT-SCEN-D-ENDP-002,2026-11-23T03:21:00+05:30,endpoint_edr,process_execution,target_admin,CRITICAL-DC-01,mimikatz.exe,mimikatz.exe sekurlsa::logonpasswords exit,process_start,SUCCESS
+EVT-SCEN-E-003,2026-11-23T10:38:00+05:30,endpoint_edr,process_execution,analyst_alice,WS-SEC-01,notepad.exe,notepad.exe C:\Users\analyst_alice\notes.txt,process_start,SUCCESS

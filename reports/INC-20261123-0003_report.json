@@ -1,0 +1,109 @@
+{
+  "incident": {
+    "incident_id": "INC-20261123-0003",
+    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
+    "severity": "Low",
+    "severity_score": 20,
+    "severity_breakdown": [
+      "Base severity anchor: Authorized Sensitive Privilege Modification (Rule: RULE_AUTHORIZED_PRIV_ESCALATION, Contribution: +20)",
+      "Authorization Mitigation: All flagged changes possess valid change ticket metadata (-dampened)",
+      "Final Deterministic Score: 20/100 -> Classified as LOW (Thresholds: Critical>=85, High>=65, Medium>=40, Low>=20)"
+    ],
+    "event_ids": [
+      "EVT-SCEN-E-002"
+    ],
+    "findings": [
+      {
+        "rule_id": "RULE_AUTHORIZED_PRIV_ESCALATION",
+        "rule_name": "Authorized Sensitive Privilege Modification",
+        "description": "Privilege change for 'svc_backup' with ticket 'CHG-8041'",
+        "severity_contribution": 20,
+        "supporting_event_ids": [
+          "EVT-SCEN-E-002"
+        ],
+        "timestamps": [
+          "2026-11-23T10:35:00+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "analyst_alice",
+            "svc_backup"
+          ],
+          "hosts": [
+            "WS-SEC-01"
+          ],
+          "ips": []
+        },
+        "explanation": "User 'svc_backup' was granted elevated group membership / role (securityadmins) by 'analyst_alice' on host 'WS-SEC-01'. Evidence indicates this change is formally authorized under Change Ticket 'CHG-8041'.",
+        "is_authorized": true
+      }
+    ],
+    "entities_involved": {
+      "users": [
+        "analyst_alice",
+        "svc_backup"
+      ],
+      "hosts": [
+        "WS-SEC-01"
+      ],
+      "ips": []
+    },
+    "correlation_explanation": "Correlated 1 suspicious detection finding(s) involving User(s): analyst_alice, svc_backup; Host(s): WS-SEC-01 spanning 1 event(s) across a 0.0 minute window. Triggered detection rules: Authorized Sensitive Privilege Modification.",
+    "timeline": [
+      {
+        "event_id": "EVT-SCEN-E-002",
+        "timestamp": "2026-11-23T10:35:00+05:30",
+        "relative_seconds": 0,
+        "action": "member_added_to_security_group",
+        "source": "active_directory",
+        "username": "analyst_alice",
+        "device_id": "WS-SEC-01",
+        "source_ip": null,
+        "result": "SUCCESS",
+        "detail": "SecurityAdmins"
+      }
+    ],
+    "created_at": "2026-11-23T17:22:25.311149"
+  },
+  "slm_analysis": {
+    "incident_id": "INC-20261123-0003",
+    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
+    "executive_summary": "Automated triage analyzed Incident INC-20261123-0003 involving identity 'analyst_alice, svc_backup' and device 'WS-SEC-01'. Deterministic severity engine assigned LOW (Score: 20/100) based on 1 triggered detection rule(s). Primary indicators: Authorized Sensitive Privilege Modification.",
+    "facts": [
+      "Rule 'Authorized Sensitive Privilege Modification' confirmed by event(s) [EVT-SCEN-E-002]: Privilege change for 'svc_backup' with ticket 'CHG-8041'",
+      "Activity sequence commenced at 2026-11-23T10:35:00+05:30 (Event EVT-SCEN-E-002) and concluded at 2026-11-23T10:35:00+05:30 (Event EVT-SCEN-E-002)."
+    ],
+    "hypotheses": [
+      "Potential security policy violation or unauthorized access attempt requiring analyst review."
+    ],
+    "rule_explanations": [
+      "User 'svc_backup' was granted elevated group membership / role (securityadmins) by 'analyst_alice' on host 'WS-SEC-01'. Evidence indicates this change is formally authorized under Change Ticket 'CHG-8041'."
+    ],
+    "missing_evidence": [
+      "Host memory dump and surrounding network connection telemetry."
+    ],
+    "recommended_actions": [
+      "Conduct standard analyst triage review and interview asset custodian."
+    ],
+    "referenced_event_ids": [
+      "EVT-SCEN-E-002"
+    ],
+    "validation_passed": true,
+    "validation_errors": [],
+    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "is_fallback": true
+  },
+  "generated_at": "2026-11-23T17:32:16.827823",
+  "provenance": {
+    "system": "PS02 Offline Security Incident Triage Assistant",
+    "version": "1.0.0",
+    "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
+    "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
+    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "inference_latency_ms": 155770.47,
+    "generated_at": "2026-11-23T17:32:16.827797Z",
+    "validation_passed": true,
+    "evidence_count": 1,
+    "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
+  }
+}

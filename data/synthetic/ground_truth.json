@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-11-23T17:20:08.472675Z",
+  "description": "Synthetic benchmark security dataset for PS02 evaluation (Scenarios A through E).",
+  "scenarios": {
+    "Scenario_A": {
+      "title": "Repeated Failed Logins (Credential Burst)",
+      "entity": "finance_user",
+      "expected_rules": [
+        "RULE_FAILED_LOGIN_BURST"
+      ],
+      "expected_severity": "Medium",
+      "event_ids": [
+        "EVT-SCEN-A-001",
+        "EVT-SCEN-A-002",
+        "EVT-SCEN-A-003",
+        "EVT-SCEN-A-004",
+        "EVT-SCEN-A-005",
+        "EVT-SCEN-A-006"
+      ]
+    },
+    "Scenario_B": {
+      "title": "Successful Out-of-Hours Login",
+      "entity": "dba_admin",
+      "expected_rules": [
+        "RULE_UNUSUAL_LOGIN_HOURS"
+      ],
+      "expected_severity": "Medium",
+      "event_ids": [
+        "EVT-SCEN-B-001"
+      ]
+    },
+    "Scenario_C": {
+      "title": "Unapproved Privilege Escalation",
+      "entity": "intern_guest",
+      "expected_rules": [
+        "RULE_UNAUTHORIZED_PRIV_ESCALATION"
+      ],
+      "expected_severity": "High",
+      "event_ids": [
+        "EVT-SCEN-C-001"
+      ]
+    },
+    "Scenario_D": {
+      "title": "Correlated Multi-Stage APT Attack Chain",
+      "entity": "target_admin",
+      "expected_rules": [
+        "RULE_BURST_FOLLOWED_BY_SUCCESS",
+        "RULE_UNUSUAL_LOGIN_HOURS",
+        "RULE_SECURITY_CONTROL_TAMPERING",
+        "RULE_UNAUTHORIZED_PRIV_ESCALATION",
+        "RULE_SUSPICIOUS_PROCESS_EXECUTION"
+      ],
+      "expected_severity": "Critical",
+      "event_ids": [
+        "EVT-SCEN-D-FAIL-001",
+        "EVT-SCEN-D-FAIL-002",
+        "EVT-SCEN-D-FAIL-003",
+        "EVT-SCEN-D-FAIL-004",
+        "EVT-SCEN-D-FAIL-005",
+        "EVT-SCEN-D-SUCC-001",
+        "EVT-SCEN-D-ENDP-001",
+        "EVT-SCEN-D-PRIV-001",
+        "EVT-SCEN-D-ENDP-002"
+      ]
+    },
+    "Scenario_E": {
+      "title": "Benign Daytime Operations & Approved Maintenance",
+      "entity": "analyst_alice",
+      "expected_rules": [
+        "RULE_AUTHORIZED_PRIV_ESCALATION"
+      ],
+      "expected_severity": "Low",
+      "event_ids": [
+        "EVT-SCEN-E-001",
+        "EVT-SCEN-E-002",
+        "EVT-SCEN-E-003"
+      ]
+    }
+  }
+}
