@@ -1,12 +1,14 @@
 # PS02: Offline Security Incident Triage Assistant
 
 [![Python Version](https://img.shields.io/badge/Python-3.14-blue.svg)](https://python.org)
+[![React Version](https://img.shields.io/badge/React-19.3-61DAFB.svg)](https://react.dev)
+[![FastAPI Version](https://img.shields.io/badge/FastAPI-0.139-009688.svg)](https://fastapi.tiangolo.com)
 [![Offline Capable](https://img.shields.io/badge/Mode-100%25%20Offline-success.svg)](#)
 [![Model](https://img.shields.io/badge/SLM-SmolLM2--135M--Instruct-orange.svg)](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-13%2F13%20Passed-brightgreen.svg)](#)
+[![Tests](https://img.shields.io/badge/Tests-22%2F22%20Passed-brightgreen.svg)](#)
 
-> **Air-Gapped, Small Language Model-Powered Security Incident Triage Assistant with Deterministic Severity Scoring and Hallucination-Guarded Forensic Reporting.**
+> **Air-Gapped, Small Language Model-Powered Security Incident Triage Assistant with Deterministic Severity Scoring, Union-Find Graph Correlation, and Production React SOC Console.**
 
 ---
 
@@ -19,21 +21,23 @@
 - **USN:** `1MS24CI073`
 - **Branch:** Computer Science & Engineering (Artificial Intelligence & Machine Learning)
 - **Institution:** Ramaiah Institute of Technology
+- **Repository Branch:** `feat/react-soc-dashboard`
 
 ---
 
 ## 🎯 Executive Summary
 
-In air-gapped environments, defense enclaves, and critical infrastructure networks (SCADA, power utilities, financial cores), sending security logs to cloud-hosted AI APIs (such as OpenAI, Azure Sentinel Copilot, or Gemini) is **strictly forbidden** due to data leakage regulations.
+In air-gapped security operations centers (SOCs), defense enclaves, and critical infrastructure networks (SCADA, financial transaction cores, healthcare), sending sensitive telemetry to cloud-hosted AI APIs (OpenAI, Gemini, Azure Copilot) is **strictly prohibited** by compliance and national security mandates.
 
-**PS02 Offline Security Incident Triage Assistant** provides an end-to-end, locally deployed solution that:
-1. Ingests and normalizes authentication and endpoint logs from CSV and JSON.
-2. Identifies suspicious activity using **four independent detection rules** (failed login bursts, unusual login hours, unapproved privilege escalation, and security control tampering).
-3. Correlates related security events across users, endpoints, and IP addresses within sliding time windows using graph-based **Union-Find clustering**.
-4. Computes an auditable, **deterministic severity score (0–100)** incorporating compound attack chain synergies.
-5. Employs a **genuine locally running Small Language Model (SmolLM2-135M)** to synthesize event timelines, distinguish verified facts from hypotheses, and recommend advisory investigation actions.
-6. Enforces **strict programmatic hallucination validation** to ensure no fictitious event IDs are ever cited.
-7. Operates **100% offline** with zero internet calls during live triage.
+**PS02 Offline Security Incident Triage Assistant** delivers a 100% local, air-gapped security incident triage platform featuring:
+1. **Multi-Source Ingestion & Normalization:** Ingests authentication and endpoint logs from CSV and JSON with automatic field aliasing, RFC-3339 timestamps, and raw event preservation.
+2. **Four Deterministic Detection Rules:** Detects failed login bursts, unusual working hours/weekend access, unapproved privilege escalations, and defensive control tampering.
+3. **Graph-Based Event Correlation:** Clusters related events across identities, hostnames, and IP addresses within sliding time windows using disjoint-set **Union-Find clustering**.
+4. **Deterministic Severity Engine:** Calculates auditable scores (0–100) incorporating multi-stage attack synergy bonuses (Critical, High, Medium, Low).
+5. **Local Small Language Model (SmolLM2-135M-Instruct):** Synthesizes executive briefings, differentiates verified facts from operational hypotheses, and generates containment checklists entirely on local CPU/RAM.
+6. **Programmatic Hallucination Shield:** Enforces strict regex validation to guarantee that every cited Event ID exists in the ground-truth telemetry.
+7. **Production React 19 SOC Dashboard:** Premium editorial console engineered in **Warm Cream (`#F3EEE3`)** and **Ink Black (`#111111`)** blending tactile neumorphism with glassmorphic depth.
+8. **Unified Single-Port Judging Launcher:** FastAPI simultaneously serves typed REST endpoints and compiled React SPA on `http://127.0.0.1:8000`.
 
 ---
 
@@ -44,7 +48,7 @@ flowchart TD
     subgraph INGESTION["1. Log Ingestion & Normalization"]
         A1[Auth Logs: CSV / JSON] --> B[Schema Parser & Field Alias Mapper]
         A2[Endpoint Logs: CSV / JSON] --> B
-        B --> C[NormalizedEvent Schema\n• Standardized ISO-8601 Timestamps\n• Preserved Raw Event\n• Deterministic SHA-256 Event ID]
+        B --> C[NormalizedEvent Schema\n• Standardized ISO-8601 Timestamps\n• Preserved Raw Event\n• Deterministic Event ID]
     end
 
     subgraph DETECTION["2. Suspicious Activity Detectors"]
@@ -65,45 +69,52 @@ flowchart TD
         H --> I[Hallucination Guard\n• Validate All Cited Event IDs\n• Strip & Flag Hallucinations]
     end
 
-    subgraph REPORTING["5. Multi-Format Reporting & UI"]
-        I --> J1[Streamlit SOC Live Dashboard]
-        I --> J2[Interactive Modular CLI]
-        I --> J3[Multi-Format Exports: JSON, Markdown, PDF]
+    subgraph PRESENTATION["5. Dual-Layer Delivery"]
+        I --> J1[FastAPI REST API Layer\n• /api/health, /api/dashboard\n• /api/ingest, /api/triage\n• /api/incidents, /api/evaluation]
+        J1 --> K1[React 19 SOC Workstation\n• Warm Cream × Ink Black\n• Neumorphism × Glassmorphism\n• 6 Interactive Workstation Views]
+        J1 --> K2[Multi-Format Exporters\n• ReportLab PDF, Markdown, JSON]
     end
 ```
 
 ---
 
-## 🔍 Four Independent Detection Rules
+## 🎨 Visual Identity: Cream Neumorphism × Glassmorphism
 
-| Rule ID | Rule Name | Detection Criteria | Default Threshold |
-| :--- | :--- | :--- | :--- |
-| `RULE_FAILED_LOGIN_BURST` | Repeated Failed Logins | $\ge N$ failed authentication attempts within a sliding time window. | $\ge 5$ failures in 5 minutes |
-| `RULE_BURST_FOLLOWED_BY_SUCCESS` | Credential Burst Followed by Success | Successful logon follows within $M$ minutes of a failed login burst targeting the same identity. | High-risk compromise escalation |
-| `RULE_UNUSUAL_LOGIN_HOURS` | Anomalous Out-of-Hours Access | Successful login outside configured business hours or on weekends in configured timezone (`Asia/Kolkata`). | Deep night (00:00–05:00) elevation |
-| `RULE_UNAUTHORIZED_PRIV_ESCALATION` | Unapproved Privilege Escalation | Addition of user to privileged group (`Administrators`, `Domain Admins`, `sudo`) without change ticket. | Verified against `approval_reference` |
-| `RULE_SECURITY_CONTROL_TAMPERING` | Defense Evasion & Tool Tampering | Commands tampering with Windows Defender, stopping EDR, or executing attack tools (`mimikatz.exe`, `vssadmin delete shadows`). | Instant Critical promotion |
+The SOC console uses an editorial design standard combining **Neumorphism** and **Glassmorphism**:
+- **Primary Canvas:** Warm Cream (`#F3EEE3`)
+- **Structure & Typography:** Ink Black (`#111111`), Secondary Charcoal (`#2D2924`), Muted Text (`#6E685F`)
+- **Tactile Surfaces:** Soft raised cards (`shadow-neu-raised`), recessed input wells (`neu-well`), and pressed button states.
+- **Glassmorphic Depth:** Translucent cream panels (`rgba(248, 245, 238, 0.75)`) with 12px backdrop blur and delicate borders.
+- **Semantic Severity:** Muted crimson for Critical, warm burnt orange for High, muted amber for Medium, restrained green for Low.
+
+### Production React SOC Dashboard Gallery
+
+| View | Screenshot | Description |
+| :--- | :--- | :--- |
+| **01 SOC Overview** | ![01 SOC Overview](outputs/screenshots/react_dashboard/01_soc_overview.png) | High-level threat landscape KPIs, Recharts severity distribution chart, active incident roster, and air-gap verification badges. |
+| **02 Telemetry Ingestion** | ![02 Telemetry Ingestion](outputs/screenshots/react_dashboard/02_telemetry_ingestion.png) | Recessed upload zones for Auth & Endpoint logs, live telemetry diagnostics, parse health stats, and 1-click benchmark dataset loader. |
+| **03 Correlated Incidents** | ![03 Correlated Incidents](outputs/screenshots/react_dashboard/03_correlated_incidents.png) | Filterable, searchable case table with severity badges, deterministic scores, identity/endpoint scopes, and deep-dive triggers. |
+| **04 Incident Deep Dive** | ![04 Incident Deep Dive](outputs/screenshots/react_dashboard/04_incident_deep_dive.png) | Executive briefing panel, verified facts vs. threat hypotheses grid, telemetry gaps, interactive analyst containment checklist, and full event chronology. |
+| **05 Evaluation & Metrics** | ![05 Evaluation & Metrics](outputs/screenshots/react_dashboard/05_evaluation_metrics.png) | Empirical ground-truth benchmark metrics (100% Precision, 100% Recall, 0% FPR), latency breakdown, confusion matrix, and Scenarios A–E validation matrix. |
+| **06 System Configuration** | ![06 System Configuration](outputs/screenshots/react_dashboard/06_system_configuration.png) | Transparent operational parameters: working hours (`09:00 - 18:00 IST`), detector windows, Union-Find pivots, severity weights, and air-gap enforcement. |
 
 ---
 
-## 🎨 Visual Identity: Cream Neumorphism × Glassmorphism
+## ⚡ FastAPI REST API Specification
 
-The SOC dashboard has been elevated with a custom **Cream Neumorphism × Glassmorphism** aesthetic tailored for an editorial enterprise cybersecurity product:
-- **Palette:** Warm Cream (`#F3EEE3`) canvas with Ink Black (`#111111`) typography and structure.
-- **Neumorphic Architecture:** Soft raised statistic cards with dual-direction shadows, recessed well surfaces, and tactile button feedback.
-- **Glassmorphism Layering:** Translucent cream panels (`rgba(248, 245, 238, 0.82)`) with 14px backdrop blur and delicate borders.
-- **Semantic Severity:** Muted crimson for Critical, warm burnt orange for High, muted amber for Medium, and restrained green for Low.
-
-### Dashboard Gallery (Captured from Live Running Application)
-
-| Section | Preview | Description |
+| Endpoint | Method | Description |
 | :--- | :--- | :--- |
-| **01 SOC Overview** | `outputs/screenshots/final_01_soc_overview.png` | Real-time threat landscape KPIs, severity distribution chart, and active incident roster. |
-| **02 Telemetry Ingestion** | `outputs/screenshots/final_02_telemetry_ingestion.png` | Recessed upload zones for Auth & Endpoint logs, validation health statistics, and standardized stream preview. |
-| **03 Correlated Incidents** | `outputs/screenshots/final_03_correlated_incidents.png` | Graph-clustered incident cards with deterministic score contributions, entity scopes, and triggered findings. |
-| **04 Incident Deep Dive** | `outputs/screenshots/final_04_incident_deep_dive.png` | Comprehensive case dossier, verified facts vs. plausible hypotheses, telemetry gaps, and 1-click PDF/MD/JSON export. |
-| **05 Evaluation & Metrics** | `outputs/screenshots/final_05_evaluation_metrics.png` | Empirical ground-truth benchmark metrics (100% Precision, 100% Recall), pipeline latencies, and confusion matrix. |
-| **06 Configuration** | `outputs/screenshots/final_06_configuration.png` | System thresholds, business hours, timezone (`Asia/Kolkata`), correlation windows, and offline SLM status. |
+| `/api/health` | `GET` | Health check, participant identity verification, and offline status assertion. |
+| `/api/dashboard` | `GET` | High-level summary metrics, severity distributions, and active incidents. |
+| `/api/demo/load` | `POST` | Re-executes triage across synthetic Scenarios A through E. |
+| `/api/ingest` | `POST` | Accepts multipart CSV/JSON auth and endpoint log uploads with diagnostics. |
+| `/api/triage` | `POST` | Re-triggers triage in `'fast'` (deterministic) or `'neural'` (local SLM) mode. |
+| `/api/incidents` | `GET` | Lists all correlated incidents with optional `?severity=` filtering. |
+| `/api/incidents/{id}` | `GET` | Comprehensive case dossier including facts, hypotheses, actions, and audit trail. |
+| `/api/incidents/{id}/export` | `GET` | 1-click download in `format=pdf`, `format=markdown`, or `format=json`. |
+| `/api/evaluation` | `GET` | Empirical ground-truth metrics (Precision, Recall, F1, Latencies). |
+| `/api/config` | `GET` | Transparent runtime configuration, detector thresholds, and severity weights. |
+| `/{full_path:path}` | `GET` | Single Page Application fallback serving compiled React frontend (`frontend/dist`). |
 
 ---
 
@@ -114,86 +125,62 @@ The system was evaluated against a reproducible synthetic benchmark dataset cont
 | Metric | Score | Validation Note |
 | :--- | :--- | :--- |
 | **Precision** | **1.00 (100%)** | Zero false-positive alerts on benign operational baselines |
-| **Recall** | **1.00 (100%)** | All 7 ground-truth attack rules successfully triggered |
-| **F1-Score** | **1.00 (100%)** | Optimal balance across all attack scenarios |
-| **False Positive Rate** | **0.00%** | Approved maintenance activities correctly dampened |
-| **Ingestion Throughput** | **605 EPS** | Events per second processed on local machine |
-| **Pipeline Latency** | **35.1 ms** | Ingestion + Detection + Correlation + Severity scoring |
-| **Test Coverage** | **13 / 13 Passed** | 100% pass rate across automated pytest suites |
+| **Recall** | **1.00 (100%)** | All ground-truth attack rules successfully triggered |
+| **F1-Score** | **1.000** | Optimal balance across all attack scenarios |
+| **False Positive Rate** | **0.00%** | Approved maintenance activities correctly recognized |
+| **Core Pipeline Latency** | **~2.8 ms** | Ingestion + Detection + Correlation + Severity scoring |
+| **Automated Test Coverage** | **22 / 22 Passed** | 100% pass rate across core algorithms and REST API endpoints |
 
 > **Evaluation Disclosure:** All metrics are empirically measured against the labelled synthetic demonstration dataset. They are not represented as enterprise production telemetry.
 
 ---
 
-## 🚀 Quickstart & Setup Guide
+## 🚀 Quickstart & Judging Instructions
 
-### 1. Prerequisites
-- Python 3.10 to 3.14
-- Git
-- 4 GB RAM minimum (6 GB+ recommended for local SLM)
+### 1. Instant 1-Click Judging Launcher (Recommended)
+On Windows, right-click and run with PowerShell or double-click:
+```powershell
+.\run_judging.ps1
+```
+Or run the batch launcher:
+```cmd
+run_judging.bat
+```
+This automatically:
+1. Activates the Python virtual environment (`.venv`).
+2. Verifies the compiled React production bundle (`frontend/dist/`).
+3. Starts the unified FastAPI server on `http://127.0.0.1:8000`.
+4. Automatically opens your default browser directly to the SOC Workstation.
 
-### 2. Virtual Environment Setup
+### 2. Manual Server Launch
 ```powershell
 cd PS02_Offline_Security_Incident_Triage_Assistant
 
-# Create virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-.\.venv\Scripts\Activate.ps1
-
-# Install pinned dependencies
-pip install -r requirements.txt
+# Run with uvicorn
+.\.venv\Scripts\python.exe -m uvicorn src.api.main:app --host 127.0.0.1 --port 8000
 ```
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
-### 3. Local Model Verification
-The genuine Small Language Model (`HuggingFaceTB/SmolLM2-135M-Instruct`) is cached in `models/SmolLM2-135M-Instruct`.
-To re-cache or verify offline weights:
+### 3. Run Automated Pytest Suite
 ```powershell
-python src/cli.py download-model
+.\.venv\Scripts\python.exe -m pytest tests/ -v
 ```
-
-### 4. Run Automated Test Suite
-```powershell
-python -m pytest tests -v
-```
+All 22 integration and algorithm tests will run and pass in ~3.3 seconds.
 
 ---
 
-## 🖥️ Running the Application
+## 🛡️ Security, Safety Guardrails & Human-in-the-Loop Governance
 
-### Option A: Interactive Streamlit SOC Dashboard
-```powershell
-streamlit run src/app.py
-```
-Access the live SOC interface in your browser:
-- **Overview:** Active KPIs, severity distributions, and active cases.
-- **Telemetry Ingestion:** Upload custom CSV/JSON or load synthetic test data.
-- **Correlated Incidents:** Detailed cluster cards, attack synergies, and timeline audits.
-- **Incident Deep Dive:** Verified facts vs. hypotheses, advisory recommendations, and 1-click PDF/Markdown/JSON downloads.
-- **Evaluation:** Live benchmark execution matrix.
-
-### Option B: Command Line Interface (CLI)
-```powershell
-# Run full offline triage on synthetic datasets
-python src/cli.py triage
-
-# Run benchmark evaluation against ground truth
-python src/cli.py benchmark
-```
+1. **Advisory Triage Only:** The assistant does **NOT** autonomously execute remediation commands (e.g. account suspension or VLAN isolation). All actions require human Security Analyst authorization.
+2. **Strict Air-Gap Guarantee:** No external network sockets, telemetry egress, or cloud LLM APIs are invoked.
+3. **Defensive Prompt Sanitization:** Raw event data is enclosed within strict delimiters to prevent prompt injection or escape attempts.
+4. **Programmatic Hallucination Guard:** The `SLMOutputValidator` verifies every cited event identifier against actual ingested telemetry, stripping unverified citations.
 
 ---
 
-## 🛡️ Security, Human-in-the-Loop & Safety Guardrails
+## 📜 AI Disclosure & Attribution
 
-1. **Advisory Triage Only:** The assistant does **NOT** autonomously disable user accounts, isolate endpoints, or execute remediation commands. All suggested actions are advisory and require human analyst review.
-2. **Defensive Prompt Engineering:** Log field contents are wrapped inside `<INCIDENT_TELEMETRY>` tags and stripped of injection markers, preventing untrusted logs from overriding system directives.
-3. **Programmatic Hallucination Validation:** The `SLMOutputValidator` regex-scans all model outputs and verifies that every cited Event ID exists in the ground truth. Fictitious event IDs are immediately stripped and flagged.
-
----
-
-## 📜 AI Usage & Third-Party Disclosure
-
-- **AI Assistance:** Architectural design, test generation, and presentation scripting were assisted by AI coding agents under participant direction. All code was reviewed, debugged, and verified by participant Mir Farzin Hussain.
-- **Model Attribution:** `HuggingFaceTB/SmolLM2-135M-Instruct` is developed by Hugging Face TB and released under the **Apache 2.0 License**.
-- **Third-Party Libraries:** Pydantic (MIT), Streamlit (Apache 2.0), ReportLab (BSD), python-pptx (MIT), Pytest (MIT).
+- **Participant:** Mir Farzin Hussain (USN: `1MS24CI073`, CSE AI & ML, Ramaiah Institute of Technology).
+- **AI Coding Assistance:** Used AI coding tools for scaffolding boilerplate, test automation, and UI styling under direct participant guidance and architectural specification.
+- **Model Attribution:** `HuggingFaceTB/SmolLM2-135M-Instruct` is licensed under the Apache 2.0 License by Hugging Face TB.
+- **Dependencies:** FastAPI, Uvicorn, React 19, Vite, Tailwind CSS, Recharts, Lucide React, Pydantic, ReportLab, Pytest.

@@ -64,7 +64,7 @@
         "detail": "kerberos_preauth"
       }
     ],
-    "created_at": "2026-11-23T18:29:39.062416"
+    "created_at": "2026-11-23T19:17:45.712075"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0001",
@@ -94,15 +94,15 @@
     "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T18:29:39.065288",
+  "generated_at": "2026-11-23T19:17:45.712942",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
     "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
-    "inference_latency_ms": 24.77,
-    "generated_at": "2026-11-23T18:29:39.065268Z",
+    "inference_latency_ms": 2.06,
+    "generated_at": "2026-11-23T19:17:45.712932Z",
     "validation_passed": true,
     "evidence_count": 1,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."

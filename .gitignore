@@ -43,3 +43,8 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Frontend Node Modules
+frontend/node_modules/
+.browser_profile/
+

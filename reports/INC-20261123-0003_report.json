@@ -1,7 +1,7 @@
 {
   "incident": {
     "incident_id": "INC-20261123-0003",
-    "title": "Correlated Security Incident on WS-SEC-01 (svc_backup)",
+    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
     "severity": "Low",
     "severity_score": 20,
     "severity_breakdown": [
@@ -26,8 +26,8 @@
         ],
         "relevant_entities": {
           "users": [
-            "svc_backup",
-            "analyst_alice"
+            "analyst_alice",
+            "svc_backup"
           ],
           "hosts": [
             "WS-SEC-01"
@@ -63,11 +63,11 @@
         "detail": "SecurityAdmins"
       }
     ],
-    "created_at": "2026-11-23T18:29:39.062864"
+    "created_at": "2026-11-23T19:17:45.712293"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0003",
-    "title": "Correlated Security Incident on WS-SEC-01 (svc_backup)",
+    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
     "executive_summary": "Automated triage analyzed Incident INC-20261123-0003 involving identity 'analyst_alice, svc_backup' and device 'WS-SEC-01'. Deterministic severity engine assigned LOW (Score: 20/100) based on 1 triggered detection rule(s). Primary indicators: Authorized Sensitive Privilege Modification.",
     "facts": [
       "Rule 'Authorized Sensitive Privilege Modification' confirmed by event(s) [EVT-SCEN-E-002]: Privilege change for 'svc_backup' with ticket 'CHG-8041'",
@@ -93,15 +93,15 @@
     "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T18:29:39.256364",
+  "generated_at": "2026-11-23T19:17:45.831862",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
     "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
-    "inference_latency_ms": 215.84,
-    "generated_at": "2026-11-23T18:29:39.256347Z",
+    "inference_latency_ms": 120.94,
+    "generated_at": "2026-11-23T19:17:45.831841Z",
     "validation_passed": true,
     "evidence_count": 1,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."

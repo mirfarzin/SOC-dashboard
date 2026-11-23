@@ -188,12 +188,12 @@ class PDFReportExporter:
         ]
         for item in inc.timeline[:8]:
             tl_data.append([
-                Paragraph(item.get("event_id", ""), body_style),
-                Paragraph(str(item.get("timestamp", ""))[-8:], body_style),
-                Paragraph(item.get("username", "N/A"), body_style),
-                Paragraph(item.get("device_id", "N/A"), body_style),
-                Paragraph(item.get("result", ""), body_style),
-                Paragraph(str(item.get("detail", item.get("action", "")))[:30], body_style)
+                Paragraph(str(item.get("event_id") or "N/A"), body_style),
+                Paragraph(str(item.get("timestamp") or "")[-8:], body_style),
+                Paragraph(str(item.get("username") or "N/A"), body_style),
+                Paragraph(str(item.get("device_id") or "N/A"), body_style),
+                Paragraph(str(item.get("result") or ""), body_style),
+                Paragraph(str(item.get("detail") or item.get("action") or "")[:30], body_style)
             ])
         tl_table = Table(tl_data, colWidths=[70, 60, 70, 70, 60, 210])
         tl_table.setStyle(TableStyle([
