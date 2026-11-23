@@ -38,7 +38,7 @@
           "EVT-SCEN-D-FAIL-003",
           "EVT-SCEN-D-FAIL-004",
           "EVT-SCEN-D-FAIL-005",
-          "EVT-SCEN-D-ENDP-002"
+          "EVT-SCEN-D-SUCC-001"
         ],
         "timestamps": [
           "2026-11-23T03:15:00+05:30",
@@ -46,7 +46,7 @@
           "2026-11-23T03:15:40+05:30",
           "2026-11-23T03:16:00+05:30",
           "2026-11-23T03:16:20+05:30",
-          "2026-11-23T03:21:00+05:30"
+          "2026-11-23T03:17:40+05:30"
         ],
         "relevant_entities": {
           "users": [
@@ -59,7 +59,7 @@
             "185.220.101.5"
           ]
         },
-        "explanation": "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-ENDP-002) at 03:21:00. This indicates potential password guessing, spray, or brute-force compromise.",
+        "explanation": "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-SUCC-001) at 03:17:40. This indicates potential password guessing, spray, or brute-force compromise.",
         "is_authorized": false
       },
       {
@@ -354,7 +354,7 @@
         "detail": "mimikatz.exe sekurlsa::logonpasswords exit"
       }
     ],
-    "created_at": "2026-11-23T17:22:25.311009"
+    "created_at": "2026-11-23T18:29:39.062736"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0002",
@@ -378,7 +378,7 @@
       "Adversary actively engaging in Defense Evasion (MITRE ATT&CK T1562) to disable EDR / antivirus monitoring on 'CRITICAL-DC-01'."
     ],
     "rule_explanations": [
-      "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-ENDP-002) at 03:21:00. This indicates potential password guessing, spray, or brute-force compromise.",
+      "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-SUCC-001) at 03:17:40. This indicates potential password guessing, spray, or brute-force compromise.",
       "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP '185.220.101.5' at 2026-11-23 03:17:40 IST. Flagged because: time 03:17:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
       "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:20:00 IST. Flagged because: time 03:20:00 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
       "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:18:40 IST. Flagged because: time 03:18:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
@@ -413,18 +413,18 @@
     ],
     "validation_passed": true,
     "validation_errors": [],
-    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T17:29:40.940611",
+  "generated_at": "2026-11-23T18:29:39.124464",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
-    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
-    "inference_latency_ms": 285467.35,
-    "generated_at": "2026-11-23T17:29:40.940576Z",
+    "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
+    "inference_latency_ms": 83.88,
+    "generated_at": "2026-11-23T18:29:39.124436Z",
     "validation_passed": true,
     "evidence_count": 9,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."

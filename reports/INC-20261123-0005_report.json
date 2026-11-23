@@ -66,7 +66,7 @@
         "detail": "Administrators"
       }
     ],
-    "created_at": "2026-11-23T17:22:25.311445"
+    "created_at": "2026-11-23T18:29:39.063137"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0005",
@@ -94,18 +94,18 @@
     ],
     "validation_passed": true,
     "validation_errors": [],
-    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T17:37:04.299094",
+  "generated_at": "2026-11-23T18:29:39.397551",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
-    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
-    "inference_latency_ms": 116625.56,
-    "generated_at": "2026-11-23T17:37:04.299064Z",
+    "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
+    "inference_latency_ms": 357.01,
+    "generated_at": "2026-11-23T18:29:39.397528Z",
     "validation_passed": true,
     "evidence_count": 1,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."

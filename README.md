@@ -86,6 +86,27 @@ flowchart TD
 
 ---
 
+## 🎨 Visual Identity: Cream Neumorphism × Glassmorphism
+
+The SOC dashboard has been elevated with a custom **Cream Neumorphism × Glassmorphism** aesthetic tailored for an editorial enterprise cybersecurity product:
+- **Palette:** Warm Cream (`#F3EEE3`) canvas with Ink Black (`#111111`) typography and structure.
+- **Neumorphic Architecture:** Soft raised statistic cards with dual-direction shadows, recessed well surfaces, and tactile button feedback.
+- **Glassmorphism Layering:** Translucent cream panels (`rgba(248, 245, 238, 0.82)`) with 14px backdrop blur and delicate borders.
+- **Semantic Severity:** Muted crimson for Critical, warm burnt orange for High, muted amber for Medium, and restrained green for Low.
+
+### Dashboard Gallery (Captured from Live Running Application)
+
+| Section | Preview | Description |
+| :--- | :--- | :--- |
+| **01 SOC Overview** | `outputs/screenshots/final_01_soc_overview.png` | Real-time threat landscape KPIs, severity distribution chart, and active incident roster. |
+| **02 Telemetry Ingestion** | `outputs/screenshots/final_02_telemetry_ingestion.png` | Recessed upload zones for Auth & Endpoint logs, validation health statistics, and standardized stream preview. |
+| **03 Correlated Incidents** | `outputs/screenshots/final_03_correlated_incidents.png` | Graph-clustered incident cards with deterministic score contributions, entity scopes, and triggered findings. |
+| **04 Incident Deep Dive** | `outputs/screenshots/final_04_incident_deep_dive.png` | Comprehensive case dossier, verified facts vs. plausible hypotheses, telemetry gaps, and 1-click PDF/MD/JSON export. |
+| **05 Evaluation & Metrics** | `outputs/screenshots/final_05_evaluation_metrics.png` | Empirical ground-truth benchmark metrics (100% Precision, 100% Recall), pipeline latencies, and confusion matrix. |
+| **06 Configuration** | `outputs/screenshots/final_06_configuration.png` | System thresholds, business hours, timezone (`Asia/Kolkata`), correlation windows, and offline SLM status. |
+
+---
+
 ## 📊 Empirical Evaluation & Benchmarks
 
 The system was evaluated against a reproducible synthetic benchmark dataset containing five ground-truth scenarios (Scenarios A through E):

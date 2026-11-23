@@ -1,7 +1,7 @@
 {
   "incident": {
     "incident_id": "INC-20261123-0003",
-    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
+    "title": "Correlated Security Incident on WS-SEC-01 (svc_backup)",
     "severity": "Low",
     "severity_score": 20,
     "severity_breakdown": [
@@ -26,8 +26,8 @@
         ],
         "relevant_entities": {
           "users": [
-            "analyst_alice",
-            "svc_backup"
+            "svc_backup",
+            "analyst_alice"
           ],
           "hosts": [
             "WS-SEC-01"
@@ -63,11 +63,11 @@
         "detail": "SecurityAdmins"
       }
     ],
-    "created_at": "2026-11-23T17:22:25.311149"
+    "created_at": "2026-11-23T18:29:39.062864"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0003",
-    "title": "Correlated Security Incident on WS-SEC-01 (analyst_alice)",
+    "title": "Correlated Security Incident on WS-SEC-01 (svc_backup)",
     "executive_summary": "Automated triage analyzed Incident INC-20261123-0003 involving identity 'analyst_alice, svc_backup' and device 'WS-SEC-01'. Deterministic severity engine assigned LOW (Score: 20/100) based on 1 triggered detection rule(s). Primary indicators: Authorized Sensitive Privilege Modification.",
     "facts": [
       "Rule 'Authorized Sensitive Privilege Modification' confirmed by event(s) [EVT-SCEN-E-002]: Privilege change for 'svc_backup' with ticket 'CHG-8041'",
@@ -90,18 +90,18 @@
     ],
     "validation_passed": true,
     "validation_errors": [],
-    "model_name": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
+    "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T17:32:16.827823",
+  "generated_at": "2026-11-23T18:29:39.256364",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
-    "local_model": "Deterministic Heuristic Fallback (SLM output did not adhere to valid JSON syntax)",
-    "inference_latency_ms": 155770.47,
-    "generated_at": "2026-11-23T17:32:16.827797Z",
+    "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
+    "inference_latency_ms": 215.84,
+    "generated_at": "2026-11-23T18:29:39.256347Z",
     "validation_passed": true,
     "evidence_count": 1,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
