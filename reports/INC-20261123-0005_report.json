@@ -1,7 +1,7 @@
 {
   "incident": {
     "incident_id": "INC-20261123-0005",
-    "title": "Unauthorized Privilege Escalation for intern_guest on DC-PRIMARY-01",
+    "title": "Unauthorized Privilege Escalation for shadow_svc on DC-PRIMARY-01",
     "severity": "High",
     "severity_score": 75,
     "severity_breakdown": [
@@ -25,8 +25,8 @@
         ],
         "relevant_entities": {
           "users": [
-            "intern_guest",
-            "shadow_svc"
+            "shadow_svc",
+            "intern_guest"
           ],
           "hosts": [
             "DC-PRIMARY-01"
@@ -66,11 +66,11 @@
         "detail": "Administrators"
       }
     ],
-    "created_at": "2026-11-23T19:40:21.731521"
+    "created_at": "2026-11-23T23:36:44.503810"
   },
   "slm_analysis": {
     "incident_id": "INC-20261123-0005",
-    "title": "Unauthorized Privilege Escalation for intern_guest on DC-PRIMARY-01",
+    "title": "Unauthorized Privilege Escalation for shadow_svc on DC-PRIMARY-01",
     "executive_summary": "Automated triage analyzed Incident INC-20261123-0005 involving identity 'intern_guest, shadow_svc' and device 'DC-PRIMARY-01'. Deterministic severity engine assigned HIGH (Score: 75/100) based on 1 triggered detection rule(s). Primary indicators: Privilege Escalation / Sensitive Group Assignment.",
     "facts": [
       "Rule 'Privilege Escalation / Sensitive Group Assignment' confirmed by event(s) [EVT-SCEN-C-001]: Unapproved privilege escalation: 'intern_guest' added to 'administrators'",
@@ -97,15 +97,15 @@
     "model_name": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
     "is_fallback": true
   },
-  "generated_at": "2026-11-23T19:40:21.902352",
+  "generated_at": "2026-11-23T23:36:44.764939",
   "provenance": {
     "system": "PS02 Offline Security Incident Triage Assistant",
     "version": "1.0.0",
     "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
     "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
     "local_model": "Deterministic Heuristic Fallback (Fast Deterministic Mode)",
-    "inference_latency_ms": 172.27,
-    "generated_at": "2026-11-23T19:40:21.902336Z",
+    "inference_latency_ms": 262.93,
+    "generated_at": "2026-11-23T23:36:44.764920Z",
     "validation_passed": true,
     "evidence_count": 1,
     "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."

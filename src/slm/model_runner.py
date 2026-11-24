@@ -154,6 +154,20 @@ class LocalSLMRunner:
 
         self._load_attempted = True
         local_path = Path(self.config.slm.local_model_path)
+        base_dir = Path(__file__).resolve().parent.parent.parent
+
+        # Robust path resolution across diverse execution working directories
+        if not (local_path.exists() and (local_path / "config.json").exists()):
+            if (base_dir / local_path).exists() and (base_dir / local_path / "config.json").exists():
+                local_path = base_dir / local_path
+            else:
+                stripped_parts = [part for part in local_path.parts if part != "PS02_Offline_Security_Incident_Triage_Assistant"]
+                if stripped_parts:
+                    stripped = Path(*stripped_parts)
+                    if (base_dir / stripped).exists() and (base_dir / stripped / "config.json").exists():
+                        local_path = base_dir / stripped
+                    elif stripped.exists() and (stripped / "config.json").exists():
+                        local_path = stripped
 
         # Check if local path exists with weights
         if not local_path.exists() or not (local_path / "config.json").exists():

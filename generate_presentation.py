@@ -624,8 +624,8 @@ def build_pptx_deck():
 
     outcomes = [
         ("🔒", "100% OFFLINE", "Air-Gapped Operation", "Zero cloud telemetry egress. Enables compliance with defense, banking, and critical infrastructure mandates without external LLM API costs."),
-        ("⚡", "35.1 MS", "Pipeline Latency", "Near-instantaneous ingestion, detection, graph correlation, and deterministic scoring across all incoming security event streams."),
-        ("🛡️", "100% GROUNDED", "Zero Hallucination Citations", "Strict programmatic regex validation ensures every cited Event ID exists in real telemetry. Eliminates fabricated forensic claims.")
+        ("⚡", "19.8 MS", "Pipeline Latency", "Near-instantaneous ingestion, detection, graph correlation, and deterministic scoring across all incoming security event streams."),
+        ("🛡️", "EVIDENCE VALIDATED", "Evidence References Validated", "Strict programmatic regex validation ensures every cited Event ID exists in real telemetry. Eliminates ungrounded forensic claims.")
     ]
 
     for idx, (icon, metric, title, body) in enumerate(outcomes):
@@ -1304,8 +1304,8 @@ def build_pdf_deck():
 
     outcomes_pdf = [
         ("100% OFFLINE", "Air-Gapped Operation", "Zero cloud telemetry egress. Enables compliance with defense, banking, and critical infrastructure mandates without external LLM API costs."),
-        ("35.1 MS", "Pipeline Latency", "Near-instantaneous ingestion, detection, graph correlation, and deterministic scoring across all incoming security event streams."),
-        ("100% GROUNDED", "Zero Hallucination Citations", "Strict programmatic regex validation ensures every cited Event ID exists in real telemetry. Eliminates fabricated forensic claims.")
+        ("19.8 MS", "Pipeline Latency", "Near-instantaneous ingestion, detection, graph correlation, and deterministic scoring across all incoming security event streams."),
+        ("EVIDENCE VALIDATED", "Evidence References Validated", "Strict programmatic regex validation ensures every cited Event ID exists in real telemetry. Eliminates ungrounded forensic claims.")
     ]
     for idx, (metric, title, body) in enumerate(outcomes_pdf):
         mx = 55 + idx * (t_col_w + t_col_gap)

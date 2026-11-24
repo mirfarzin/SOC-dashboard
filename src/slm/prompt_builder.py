@@ -104,13 +104,15 @@ def build_triage_prompt(incident: Incident) -> str:
         "event_timeline": sanitized_timeline
     }
 
-    prompt = f"""{SYSTEM_INSTRUCTION}
-
+    prompt = f"""<|im_start|>system
+{SYSTEM_INSTRUCTION}<|im_end|>
+<|im_start|>user
 <INCIDENT_TELEMETRY>
 {json.dumps(telemetry_payload, indent=2, default=str)}
 </INCIDENT_TELEMETRY>
 
 Respond ONLY with valid JSON conforming to this schema:
-{JSON_SCHEMA_EXAMPLE}
+{JSON_SCHEMA_EXAMPLE}<|im_end|>
+<|im_start|>assistant
 """
     return prompt

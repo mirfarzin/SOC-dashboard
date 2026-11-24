@@ -100,16 +100,34 @@ class AppConfig(BaseModel):
 
 
 def load_config(config_path: Path | str | None = None) -> AppConfig:
-    """Load configuration from settings.yaml or return defaults."""
-    if config_path is None:
-        # Default search path relative to project root
-        base_dir = Path(__file__).resolve().parent.parent
-        config_path = base_dir / "config" / "settings.yaml"
-    else:
-        config_path = Path(config_path)
+    """Load configuration from settings.yaml or return defaults.
+    Robustly resolves paths regardless of whether the working directory is the
+    project root, workspace parent, or an arbitrary subfolder.
+    """
+    base_dir = Path(__file__).resolve().parent.parent
 
-    if config_path.exists():
-        with open(config_path, "r", encoding="utf-8") as f:
+    target_path = None
+    if config_path is not None:
+        p = Path(config_path)
+        if p.exists():
+            target_path = p
+        elif (base_dir / p).exists():
+            target_path = base_dir / p
+        else:
+            # Check if path contains project folder prefix while already inside it
+            stripped_parts = [part for part in p.parts if part != "PS02_Offline_Security_Incident_Triage_Assistant"]
+            if stripped_parts:
+                stripped = Path(*stripped_parts)
+                if stripped.exists():
+                    target_path = stripped
+                elif (base_dir / stripped).exists():
+                    target_path = base_dir / stripped
+
+    if target_path is None or not target_path.exists():
+        target_path = base_dir / "config" / "settings.yaml"
+
+    if target_path.exists():
+        with open(target_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
             return AppConfig(**data)
     return AppConfig()

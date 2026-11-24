@@ -1,0 +1,376 @@
+{
+  "incident": {
+    "incident_id": "INC-20261123-0002",
+    "title": "Multi-Stage Account Compromise & Privilege Escalation (target_admin)",
+    "severity": "Critical",
+    "severity_score": 100,
+    "severity_breakdown": [
+      "Base severity anchor: Privilege Escalation / Sensitive Group Assignment (Rule: RULE_UNAUTHORIZED_PRIV_ESCALATION, Contribution: +75)",
+      "Distinct rule overlap: Brute-Force / Credential Burst Followed by Successful Login (+15)",
+      "Distinct rule overlap: Authentication Outside Standard Working Hours (+8)",
+      "Multi-Stage Synergy Bonus: Credential compromise chained with unapproved privilege escalation (+25)",
+      "Stealth Synergy Bonus: Off-hours authentication combined with unapproved privilege escalation (+15)",
+      "Final Deterministic Score: 100/100 -> Classified as CRITICAL (Thresholds: Critical>=85, High>=65, Medium>=40, Low>=20)"
+    ],
+    "event_ids": [
+      "EVT-SCEN-D-ENDP-001",
+      "EVT-SCEN-D-ENDP-002",
+      "EVT-SCEN-D-FAIL-001",
+      "EVT-SCEN-D-FAIL-002",
+      "EVT-SCEN-D-FAIL-003",
+      "EVT-SCEN-D-FAIL-004",
+      "EVT-SCEN-D-FAIL-005",
+      "EVT-SCEN-D-PRIV-001",
+      "EVT-SCEN-D-SUCC-001"
+    ],
+    "findings": [
+      {
+        "rule_id": "RULE_BURST_FOLLOWED_BY_SUCCESS",
+        "rule_name": "Brute-Force / Credential Burst Followed by Successful Login",
+        "description": "Detected 5 failed authentications within 300s followed by successful authentication for 'target_admin'.",
+        "severity_contribution": 65,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-FAIL-001",
+          "EVT-SCEN-D-FAIL-002",
+          "EVT-SCEN-D-FAIL-003",
+          "EVT-SCEN-D-FAIL-004",
+          "EVT-SCEN-D-FAIL-005",
+          "EVT-SCEN-D-SUCC-001"
+        ],
+        "timestamps": [
+          "2026-11-23T03:15:00+05:30",
+          "2026-11-23T03:15:20+05:30",
+          "2026-11-23T03:15:40+05:30",
+          "2026-11-23T03:16:00+05:30",
+          "2026-11-23T03:16:20+05:30",
+          "2026-11-23T03:17:40+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": [
+            "185.220.101.5"
+          ]
+        },
+        "explanation": "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-SUCC-001) at 03:17:40. This indicates potential password guessing, spray, or brute-force compromise.",
+        "is_authorized": false
+      },
+      {
+        "rule_id": "RULE_UNUSUAL_LOGIN_HOURS",
+        "rule_name": "Authentication Outside Standard Working Hours",
+        "description": "Out-of-hours login for 'target_admin' at 03:17 IST",
+        "severity_contribution": 35,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-SUCC-001"
+        ],
+        "timestamps": [
+          "2026-11-23T03:17:40+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": [
+            "185.220.101.5"
+          ]
+        },
+        "explanation": "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP '185.220.101.5' at 2026-11-23 03:17:40 IST. Flagged because: time 03:17:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+        "is_authorized": false
+      },
+      {
+        "rule_id": "RULE_UNUSUAL_LOGIN_HOURS",
+        "rule_name": "Authentication Outside Standard Working Hours",
+        "description": "Out-of-hours login for 'target_admin' at 03:20 IST",
+        "severity_contribution": 35,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-PRIV-001"
+        ],
+        "timestamps": [
+          "2026-11-23T03:20:00+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": [
+            "Local"
+          ]
+        },
+        "explanation": "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:20:00 IST. Flagged because: time 03:20:00 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+        "is_authorized": false
+      },
+      {
+        "rule_id": "RULE_UNUSUAL_LOGIN_HOURS",
+        "rule_name": "Authentication Outside Standard Working Hours",
+        "description": "Out-of-hours login for 'target_admin' at 03:18 IST",
+        "severity_contribution": 35,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-ENDP-001"
+        ],
+        "timestamps": [
+          "2026-11-23T03:18:40+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": [
+            "Local"
+          ]
+        },
+        "explanation": "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:18:40 IST. Flagged because: time 03:18:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+        "is_authorized": false
+      },
+      {
+        "rule_id": "RULE_UNUSUAL_LOGIN_HOURS",
+        "rule_name": "Authentication Outside Standard Working Hours",
+        "description": "Out-of-hours login for 'target_admin' at 03:21 IST",
+        "severity_contribution": 35,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-ENDP-002"
+        ],
+        "timestamps": [
+          "2026-11-23T03:21:00+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": [
+            "Local"
+          ]
+        },
+        "explanation": "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:21:00 IST. Flagged because: time 03:21:00 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+        "is_authorized": false
+      },
+      {
+        "rule_id": "RULE_UNAUTHORIZED_PRIV_ESCALATION",
+        "rule_name": "Privilege Escalation / Sensitive Group Assignment",
+        "description": "Unapproved privilege escalation: 'target_admin' added to 'domain admins'",
+        "severity_contribution": 75,
+        "supporting_event_ids": [
+          "EVT-SCEN-D-PRIV-001"
+        ],
+        "timestamps": [
+          "2026-11-23T03:20:00+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "target_admin"
+          ],
+          "hosts": [
+            "CRITICAL-DC-01"
+          ],
+          "ips": []
+        },
+        "explanation": "CRITICAL PRIVILEGE ANOMALY: User 'target_admin' was added to high-privilege group/role 'domain admins' by actor 'target_admin' on 'CRITICAL-DC-01' without any recorded change ticket, approval reference, or maintenance authorization in telemetry. This strongly resembles persistence establishment or unauthorized privilege escalation.",
+        "is_authorized": false
+      }
+    ],
+    "entities_involved": {
+      "users": [
+        "target_admin"
+      ],
+      "hosts": [
+        "CRITICAL-DC-01"
+      ],
+      "ips": [
+        "185.220.101.5"
+      ]
+    },
+    "correlation_explanation": "Correlated 6 suspicious detection finding(s) involving User(s): target_admin; Host(s): CRITICAL-DC-01; IP(s): 185.220.101.5 spanning 9 event(s) across a 6.0 minute window. Triggered detection rules: Brute-Force / Credential Burst Followed by Successful Login, Authentication Outside Standard Working Hours, Authentication Outside Standard Working Hours, Authentication Outside Standard Working Hours, Authentication Outside Standard Working Hours, Privilege Escalation / Sensitive Group Assignment.",
+    "timeline": [
+      {
+        "event_id": "EVT-SCEN-D-FAIL-001",
+        "timestamp": "2026-11-23T03:15:00+05:30",
+        "relative_seconds": 0,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-FAIL-002",
+        "timestamp": "2026-11-23T03:15:20+05:30",
+        "relative_seconds": 20,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-FAIL-003",
+        "timestamp": "2026-11-23T03:15:40+05:30",
+        "relative_seconds": 40,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-FAIL-004",
+        "timestamp": "2026-11-23T03:16:00+05:30",
+        "relative_seconds": 60,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-FAIL-005",
+        "timestamp": "2026-11-23T03:16:20+05:30",
+        "relative_seconds": 80,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-SUCC-001",
+        "timestamp": "2026-11-23T03:17:40+05:30",
+        "relative_seconds": 160,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": "185.220.101.5",
+        "result": "SUCCESS",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-D-ENDP-001",
+        "timestamp": "2026-11-23T03:18:40+05:30",
+        "relative_seconds": 220,
+        "action": "service_tamper",
+        "source": "endpoint_edr",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": null,
+        "result": "SUCCESS",
+        "detail": "powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true"
+      },
+      {
+        "event_id": "EVT-SCEN-D-PRIV-001",
+        "timestamp": "2026-11-23T03:20:00+05:30",
+        "relative_seconds": 300,
+        "action": "member_added_to_security_group",
+        "source": "active_directory",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": null,
+        "result": "SUCCESS",
+        "detail": "Domain Admins"
+      },
+      {
+        "event_id": "EVT-SCEN-D-ENDP-002",
+        "timestamp": "2026-11-23T03:21:00+05:30",
+        "relative_seconds": 360,
+        "action": "process_start",
+        "source": "endpoint_edr",
+        "username": "target_admin",
+        "device_id": "CRITICAL-DC-01",
+        "source_ip": null,
+        "result": "SUCCESS",
+        "detail": "mimikatz.exe sekurlsa::logonpasswords exit"
+      }
+    ],
+    "created_at": "2026-11-23T19:46:06.783245"
+  },
+  "slm_analysis": {
+    "incident_id": "INC-20261123-0002",
+    "title": "Multi-Stage Account Compromise & Privilege Escalation (target_admin)",
+    "executive_summary": "Automated triage analyzed Incident INC-20261123-0002 involving identity 'target_admin' and device 'CRITICAL-DC-01'. Deterministic severity engine assigned CRITICAL (Score: 100/100) based on 6 triggered detection rule(s). Primary indicators: Brute-Force / Credential Burst Followed by Successful Login; Authentication Outside Standard Working Hours; Authentication Outside Standard Working Hours; Authentication Outside Standard Working Hours; Authentication Outside Standard Working Hours; Privilege Escalation / Sensitive Group Assignment.",
+    "facts": [
+      "Rule 'Brute-Force / Credential Burst Followed by Successful Login' confirmed by event(s) [EVT-SCEN-D-FAIL-001, EVT-SCEN-D-FAIL-002, EVT-SCEN-D-FAIL-003, EVT-SCEN-D-FAIL-004]: Detected 5 failed authentications within 300s followed by successful authentication for 'target_admin'.",
+      "Rule 'Authentication Outside Standard Working Hours' confirmed by event(s) [EVT-SCEN-D-SUCC-001]: Out-of-hours login for 'target_admin' at 03:17 IST",
+      "Rule 'Authentication Outside Standard Working Hours' confirmed by event(s) [EVT-SCEN-D-PRIV-001]: Out-of-hours login for 'target_admin' at 03:20 IST",
+      "Rule 'Authentication Outside Standard Working Hours' confirmed by event(s) [EVT-SCEN-D-ENDP-001]: Out-of-hours login for 'target_admin' at 03:18 IST",
+      "Rule 'Authentication Outside Standard Working Hours' confirmed by event(s) [EVT-SCEN-D-ENDP-002]: Out-of-hours login for 'target_admin' at 03:21 IST",
+      "Rule 'Privilege Escalation / Sensitive Group Assignment' confirmed by event(s) [EVT-SCEN-D-PRIV-001]: Unapproved privilege escalation: 'target_admin' added to 'domain admins'",
+      "Activity sequence commenced at 2026-11-23T03:15:00+05:30 (Event EVT-SCEN-D-FAIL-001) and concluded at 2026-11-23T03:21:00+05:30 (Event EVT-SCEN-D-ENDP-002)."
+    ],
+    "hypotheses": [
+      "High probability of credential stuffing, password spray, or brute-force attack against 'target_admin' culminating in unauthorized account breach.",
+      "Threat actor or rogue administrator establishing persistent root/administrative access on 'CRITICAL-DC-01' outside legitimate change approval workflows.",
+      "Off-hours access by 'target_admin' may indicate compromised credentials exploited during low-monitoring windows or legitimate after-hours operational overtime."
+    ],
+    "rule_explanations": [
+      "High-risk pattern: Entity 'target_admin' experienced 5 consecutive authentication failures between 03:15:00 and 03:16:20, followed immediately by successful logon (Event EVT-SCEN-D-SUCC-001) at 03:17:40. This indicates potential password guessing, spray, or brute-force compromise.",
+      "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP '185.220.101.5' at 2026-11-23 03:17:40 IST. Flagged because: time 03:17:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+      "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:20:00 IST. Flagged because: time 03:20:00 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+      "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:18:40 IST. Flagged because: time 03:18:40 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+      "User 'target_admin' successfully logged into 'CRITICAL-DC-01' from IP 'Local' at 2026-11-23 03:21:00 IST. Flagged because: time 03:21:00 is outside business hours (09:00 - 18:00 Asia/Kolkata). Context: Account possesses administrative privileges, elevating triage priority. Deep night logon window (00:00 - 05:00) carries heightened risk of unauthorized access.",
+      "CRITICAL PRIVILEGE ANOMALY: User 'target_admin' was added to high-privilege group/role 'domain admins' by actor 'target_admin' on 'CRITICAL-DC-01' without any recorded change ticket, approval reference, or maintenance authorization in telemetry. This strongly resembles persistence establishment or unauthorized privilege escalation."
+    ],
+    "missing_evidence": [
+      "Perimeter VPN and Web Application Firewall (WAF) logs for source IP(s) 185.220.101.5.",
+      "Active Directory Security Event 4672 / 4728 audit trail to identify the originating security principal."
+    ],
+    "recommended_actions": [
+      "Promptly invalidate active web and Kerberos sessions for account 'target_admin'.",
+      "Block remote ingress from source IP(s): 185.220.101.5 at perimeter firewall.",
+      "Verify authorization of 'target_admin' group membership change with Change Advisory Board (CAB).",
+      "If unauthorized, revoke elevated privileges for 'target_admin' and audit recent audit log deletions.",
+      "Directly contact user 'target_admin' via secondary out-of-band communication (phone/manager) to verify physical presence."
+    ],
+    "referenced_event_ids": [
+      "EVT-SCEN-D-ENDP-001",
+      "EVT-SCEN-D-ENDP-002",
+      "EVT-SCEN-D-FAIL-001",
+      "EVT-SCEN-D-FAIL-002",
+      "EVT-SCEN-D-FAIL-003",
+      "EVT-SCEN-D-FAIL-004",
+      "EVT-SCEN-D-FAIL-005",
+      "EVT-SCEN-D-PRIV-001",
+      "EVT-SCEN-D-SUCC-001"
+    ],
+    "validation_passed": true,
+    "validation_errors": [],
+    "model_name": "Deterministic Heuristic Fallback (Local model weights directory 'PS02_Offline_Security_Incident_Triage_Assistant\\models\\SmolLM2-135M-Instruct' not found or incomplete.)",
+    "is_fallback": true
+  },
+  "generated_at": "2026-11-23T19:46:06.825636",
+  "provenance": {
+    "system": "PS02 Offline Security Incident Triage Assistant",
+    "version": "1.0.0",
+    "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
+    "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
+    "local_model": "Deterministic Heuristic Fallback (Local model weights directory 'PS02_Offline_Security_Incident_Triage_Assistant\\models\\SmolLM2-135M-Instruct' not found or incomplete.)",
+    "inference_latency_ms": 0.3,
+    "generated_at": "2026-11-23T19:46:06.825620Z",
+    "validation_passed": true,
+    "evidence_count": 9,
+    "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
+  }
+}

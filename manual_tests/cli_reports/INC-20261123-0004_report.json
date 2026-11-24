@@ -1,0 +1,190 @@
+{
+  "incident": {
+    "incident_id": "INC-20261123-0004",
+    "title": "Repeated Authentication Failures targeting finance_user",
+    "severity": "Low",
+    "severity_score": 35,
+    "severity_breakdown": [
+      "Base severity anchor: Repeated Failed Logins with Burst Escalation (Rule: RULE_FAILED_LOGIN_BURST, Contribution: +35)",
+      "Final Deterministic Score: 35/100 -> Classified as LOW (Thresholds: Critical>=85, High>=65, Medium>=40, Low>=20)"
+    ],
+    "event_ids": [
+      "EVT-SCEN-A-001",
+      "EVT-SCEN-A-002",
+      "EVT-SCEN-A-003",
+      "EVT-SCEN-A-004",
+      "EVT-SCEN-A-005",
+      "EVT-SCEN-A-006"
+    ],
+    "findings": [
+      {
+        "rule_id": "RULE_FAILED_LOGIN_BURST",
+        "rule_name": "Repeated Failed Logins with Burst Escalation",
+        "description": "Detected 6 failed authentication attempts within 300s for 'finance_user'.",
+        "severity_contribution": 35,
+        "supporting_event_ids": [
+          "EVT-SCEN-A-001",
+          "EVT-SCEN-A-002",
+          "EVT-SCEN-A-003",
+          "EVT-SCEN-A-004",
+          "EVT-SCEN-A-005",
+          "EVT-SCEN-A-006"
+        ],
+        "timestamps": [
+          "2026-11-23T11:00:00+05:30",
+          "2026-11-23T11:00:25+05:30",
+          "2026-11-23T11:00:50+05:30",
+          "2026-11-23T11:01:15+05:30",
+          "2026-11-23T11:01:40+05:30",
+          "2026-11-23T11:02:05+05:30"
+        ],
+        "relevant_entities": {
+          "users": [
+            "finance_user"
+          ],
+          "hosts": [
+            "WS-FIN-02"
+          ],
+          "ips": [
+            "198.51.100.44"
+          ]
+        },
+        "explanation": "Entity 'finance_user' registered 6 failed logins within a 5-minute sliding window. Source IPs involved: 198.51.100.44.",
+        "is_authorized": false
+      }
+    ],
+    "entities_involved": {
+      "users": [
+        "finance_user"
+      ],
+      "hosts": [
+        "WS-FIN-02"
+      ],
+      "ips": [
+        "198.51.100.44"
+      ]
+    },
+    "correlation_explanation": "Correlated 1 suspicious detection finding(s) involving User(s): finance_user; Host(s): WS-FIN-02; IP(s): 198.51.100.44 spanning 6 event(s) across a 2.1 minute window. Triggered detection rules: Repeated Failed Logins with Burst Escalation.",
+    "timeline": [
+      {
+        "event_id": "EVT-SCEN-A-001",
+        "timestamp": "2026-11-23T11:00:00+05:30",
+        "relative_seconds": 0,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-A-002",
+        "timestamp": "2026-11-23T11:00:25+05:30",
+        "relative_seconds": 25,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-A-003",
+        "timestamp": "2026-11-23T11:00:50+05:30",
+        "relative_seconds": 50,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-A-004",
+        "timestamp": "2026-11-23T11:01:15+05:30",
+        "relative_seconds": 75,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-A-005",
+        "timestamp": "2026-11-23T11:01:40+05:30",
+        "relative_seconds": 100,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      },
+      {
+        "event_id": "EVT-SCEN-A-006",
+        "timestamp": "2026-11-23T11:02:05+05:30",
+        "relative_seconds": 125,
+        "action": "user_logon",
+        "source": "auth_service",
+        "username": "finance_user",
+        "device_id": "WS-FIN-02",
+        "source_ip": "198.51.100.44",
+        "result": "FAILURE",
+        "detail": "user_logon"
+      }
+    ],
+    "created_at": "2026-11-23T19:46:06.783402"
+  },
+  "slm_analysis": {
+    "incident_id": "INC-20261123-0004",
+    "title": "Repeated Authentication Failures targeting finance_user",
+    "executive_summary": "Automated triage analyzed Incident INC-20261123-0004 involving identity 'finance_user' and device 'WS-FIN-02'. Deterministic severity engine assigned LOW (Score: 35/100) based on 1 triggered detection rule(s). Primary indicators: Repeated Failed Logins with Burst Escalation.",
+    "facts": [
+      "Rule 'Repeated Failed Logins with Burst Escalation' confirmed by event(s) [EVT-SCEN-A-001, EVT-SCEN-A-002, EVT-SCEN-A-003, EVT-SCEN-A-004]: Detected 6 failed authentication attempts within 300s for 'finance_user'.",
+      "Activity sequence commenced at 2026-11-23T11:00:00+05:30 (Event EVT-SCEN-A-001) and concluded at 2026-11-23T11:02:05+05:30 (Event EVT-SCEN-A-006)."
+    ],
+    "hypotheses": [
+      "Automated credential spray or misconfigured script causing rapid authentication failures for 'finance_user'."
+    ],
+    "rule_explanations": [
+      "Entity 'finance_user' registered 6 failed logins within a 5-minute sliding window. Source IPs involved: 198.51.100.44."
+    ],
+    "missing_evidence": [
+      "Host memory dump and surrounding network connection telemetry."
+    ],
+    "recommended_actions": [
+      "Inspect host 'WS-FIN-02' for cached credential failure loops or scheduled tasks."
+    ],
+    "referenced_event_ids": [
+      "EVT-SCEN-A-001",
+      "EVT-SCEN-A-002",
+      "EVT-SCEN-A-003",
+      "EVT-SCEN-A-004",
+      "EVT-SCEN-A-005",
+      "EVT-SCEN-A-006"
+    ],
+    "validation_passed": true,
+    "validation_errors": [],
+    "model_name": "Deterministic Heuristic Fallback (Local model weights directory 'PS02_Offline_Security_Incident_Triage_Assistant\\models\\SmolLM2-135M-Instruct' not found or incomplete.)",
+    "is_fallback": true
+  },
+  "generated_at": "2026-11-23T19:46:06.908406",
+  "provenance": {
+    "system": "PS02 Offline Security Incident Triage Assistant",
+    "version": "1.0.0",
+    "participant": "Mir Farzin Hussain (USN: 1MS24CI073)",
+    "operating_mode": "100% OFFLINE (No Cloud / Zero Internet Dependencies)",
+    "local_model": "Deterministic Heuristic Fallback (Local model weights directory 'PS02_Offline_Security_Incident_Triage_Assistant\\models\\SmolLM2-135M-Instruct' not found or incomplete.)",
+    "inference_latency_ms": 0.23,
+    "generated_at": "2026-11-23T19:46:06.908391Z",
+    "validation_passed": true,
+    "evidence_count": 6,
+    "human_in_the_loop_notice": "ADVISORY NOTICE: This report is an AI-assisted triage briefing. No autonomous remediation actions were executed. All recommended steps require explicit authorization by a human Security Analyst."
+  }
+}
